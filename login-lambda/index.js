@@ -7,16 +7,17 @@ const client = new DynamoDBClient();
 exports.handler = async (event) => {
     const { username, password } = JSON.parse(event.body);
 
+    // Adjust Key to match the schema of your DynamoDB table
     const params = {
         TableName: 'Users',
-        Key: { username: { S: username } }
+        Key: { username: username }  // If username is the partition key and is of String type
     };
 
     try {
         const command = new GetCommand(params);
         const result = await client.send(command);
 
-        if (result.Item && bcrypt.compareSync(password, result.Item.password.S)) {
+        if (result.Item && bcrypt.compareSync(password, result.Item.password)) {
             return {
                 statusCode: 200,
                 body: JSON.stringify({ success: true, message: 'Login successful' })
