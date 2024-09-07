@@ -16,6 +16,10 @@
         <br><br>
         <button type="submit">Login</button>
     </form>
+    
+    <!-- Add a Register button below the form -->
+    <br><br>
+    <button id="registerButton">Register</button>
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', async function(event) {
@@ -33,11 +37,17 @@
             if (result.success) {
                 // Set a flag in sessionStorage to indicate the user is logged in
                 sessionStorage.setItem('loggedIn', true);
-                // Redirect the user to the landing page (now index.html)
-                window.location.href = '/index.html'; // Redirect to index.html after login
+                // Redirect to the landing page (index.html)
+                window.location.href = '/index.html';
             } else {
-                alert(result.message); // Show an error message if login failed
+                alert(result.message); // Show an error message if login fails
             }
+        });
+
+        // Add a click event listener to the Register button
+        document.getElementById('registerButton').addEventListener('click', function() {
+            // Redirect the user to the register page when they click the button
+            window.location.href = '/register.html';
         });
     </script>
 </body>
