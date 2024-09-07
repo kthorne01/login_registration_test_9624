@@ -28,12 +28,15 @@
                 body: JSON.stringify({ username, password }),
                 headers: { 'Content-Type': 'application/json' }
             });
-            
+
             const result = await response.json();
             if (result.success) {
-                window.location.href = 'landing.html';
+                // Set a flag in sessionStorage to indicate the user is logged in
+                sessionStorage.setItem('loggedIn', true);
+                // Redirect the user to the landing page (now index.html)
+                window.location.href = '/index.html'; // Redirect to index.html after login
             } else {
-                alert(result.message);
+                alert(result.message); // Show an error message if login failed
             }
         });
     </script>
